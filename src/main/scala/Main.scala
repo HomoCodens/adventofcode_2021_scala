@@ -1,3 +1,5 @@
+import aocutil.InputReader
+
 object Main extends App {
   println("no main, well that is stupid...")
   for(a <- args) {
@@ -6,11 +8,12 @@ object Main extends App {
   println("done")
   println("done")
 
-  val depths = scala.io.Source.fromFile("inputs/day1/input.txt").getLines.toArray.map(_.toInt)
+  val day1Reader = new InputReader("./inputs", 1)
+  val depths = day1Reader.readInt()
   println(doit(depths))
-  println(doit(depths.sliding(3).map(_.sum).toArray))
+  println(doit(depths.sliding(3).map(_.sum).toList))
 
-  def doit(x : Array[Int]) : Int = {
+  def doit(x : List[Int]) : Int = {
     x.sliding(2).map(a => a(0) < a(1)).count(a => a)
   }
 
@@ -19,18 +22,16 @@ object Main extends App {
     (parts(0), parts(1).toInt)
   }
 
-  val instructions = scala.io.Source.fromFile("inputs/day2/input.txt").getLines.toArray.map(parseInstruction)
+  val day2Reader = new InputReader[Tuple2[String, Int]]("./inputs", 2)
+  val instructions = day2Reader.readParsed(parseInstruction)
   var h = 0
   var d = 0
   for(x <- instructions) {
     if(x._1 == "forward") {
-      println("going forward")
       h += x._2
     } else if(x._1 == "down") {
-      println("going down")
       d += x._2
     } else {
-      println("going up")
       d -= x._2
     }
   }
@@ -43,14 +44,11 @@ object Main extends App {
   var a = 0
   for(x <- instructions) {
     if(x._1 == "forward") {
-      println("going forward")
       h += x._2
       d += a * x._2
     } else if(x._1 == "down") {
-      println("going down")
       a += x._2
     } else {
-      println("going up")
       a -= x._2
     }
   }
