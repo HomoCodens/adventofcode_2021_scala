@@ -1,21 +1,9 @@
 import aocutil.InputReader
-
+import solvers.Day1Solver
 object Main extends App {
-  println("no main, well that is stupid...")
-  for(a <- args) {
-    println(a)
-  }
-  println("done")
-  println("done")
 
-  val day1Reader = new InputReader("./inputs", 1)
-  val depths = day1Reader.readInt()
-  println(doit(depths))
-  println(doit(depths.sliding(3).map(_.sum).toList))
-
-  def doit(x : List[Int]) : Int = {
-    x.sliding(2).map(a => a(0) < a(1)).count(a => a)
-  }
+  val d1 = new Day1Solver("./input", false)
+  d1.run()
 
   def parseInstruction(x : String) : Tuple2[String, Int] = {
     val parts = x.split(" ")
@@ -55,4 +43,70 @@ object Main extends App {
   println(h)
   println(d)
   println(h * d)
+
+  val day3Reader = new InputReader[List[Int]]("./inputs", 3)
+
+  def parse(x: String) : List[Int] = {
+    x.split("").toList.map(_.toInt)
+  }
+
+  val diagnostics = day3Reader.readParsed(parse)
+  for(x <- diagnostics) {
+    println(x)
+  }
+
+  val threshold = diagnostics.length / 2
+  val counts = diagnostics.reduce((a, b) => a.zip(b).map(x => x._1 + x._2))
+  println(counts)
+  val gamma = Integer.parseInt(counts.map(x => if (x > threshold) 1 else 0).mkString, 2)
+  println(gamma)
+  val epsilon = Integer.parseInt(counts.map(x => if (x < threshold) 1 else 0).mkString, 2)
+  println(epsilon)
+  println(epsilon * gamma)
+
+  def lifeSupportFilter(inputs: List[List[Int]], digit: Int, ogr: Boolean) = {
+    val threshold: Double = inputs.length / 2.0
+    val counts = inputs.reduce((a, b) => a.zip(b).map(x => x._1 + x._2))
+    println(counts)
+    println(threshold)
+    if(ogr) {
+      if(counts(digit) >= threshold) {
+        inputs.filter(x => x(digit) == 1)
+      } else {
+        inputs.filter(x => x(digit) == 0)
+      }
+    } else {
+      if(counts(digit) < threshold) {
+        inputs.filter(x => x(digit) == 1)
+      } else {
+        inputs.filter(x => x(digit) == 0)
+      }
+    }
+  }
+
+  var bla = diagnostics
+  var di = 0
+  while(bla.length > 1) {
+    bla = lifeSupportFilter(bla, di, true)
+    di += 1
+    println(bla)
+    println("======================")
+  }
+  println(bla)
+
+  var blu = diagnostics
+  di = 0
+  while(blu.length > 1) {
+    blu = lifeSupportFilter(blu, di, false)
+    di += 1
+    println(blu)
+    println("==========================")
+  }
+  println(blu)
+
+  val ogr = Integer.parseInt(bla(0).mkString, 2)
+  val co2 = Integer.parseInt(blu(0).mkString, 2)
+  println(ogr)
+  println(co2)
+  println(ogr * co2)
 }
