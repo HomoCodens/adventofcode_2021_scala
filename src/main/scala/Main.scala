@@ -1,50 +1,15 @@
 import aocutil.InputReader
 import solvers.Day1Solver
+import solvers.Day2Solver
 object Main extends App {
 
-  val d1 = new Day1Solver("./input", false)
+  val d1 = new Day1Solver("./inputs", false)
   d1.run()
 
-  def parseInstruction(x : String) : Tuple2[String, Int] = {
-    val parts = x.split(" ")
-    (parts(0), parts(1).toInt)
-  }
+  val d2 = new Day2Solver("./inputs", false)
+  d2.run()
 
-  val day2Reader = new InputReader[Tuple2[String, Int]]("./inputs", 2)
-  val instructions = day2Reader.readParsed(parseInstruction)
-  var h = 0
-  var d = 0
-  for(x <- instructions) {
-    if(x._1 == "forward") {
-      h += x._2
-    } else if(x._1 == "down") {
-      d += x._2
-    } else {
-      d -= x._2
-    }
-  }
-  println(h)
-  println(d)
-  println(h*d)
-
-  h = 0
-  d = 0
-  var a = 0
-  for(x <- instructions) {
-    if(x._1 == "forward") {
-      h += x._2
-      d += a * x._2
-    } else if(x._1 == "down") {
-      a += x._2
-    } else {
-      a -= x._2
-    }
-  }
-  println(h)
-  println(d)
-  println(h * d)
-
-  val day3Reader = new InputReader[List[Int]]("./inputs", 3)
+  /*val day3Reader = new InputReader[List[Int]]("./inputs", 3)
 
   def parse(x: String) : List[Int] = {
     x.split("").toList.map(_.toInt)
@@ -108,5 +73,5 @@ object Main extends App {
   val co2 = Integer.parseInt(blu(0).mkString, 2)
   println(ogr)
   println(co2)
-  println(ogr * co2)
+  println(ogr * co2)*/
 }

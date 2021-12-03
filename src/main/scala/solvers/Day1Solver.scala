@@ -6,7 +6,7 @@ class Day1Solver(inputRoot: String,
                  test: Boolean = false,
                  testCase: Int = 1) extends Solver(inputRoot, verbose) {
   val day = 1
-  val reader = new InputReader("./inputs", 1)
+  val reader = new InputReader(inputRoot, 1)
   val depths = reader.readInt(test, testCase)
   def countDeepers(x : List[Int]) : Int = {
     x.sliding(2).count(x => x(0) < x(1))
