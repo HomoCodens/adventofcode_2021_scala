@@ -35,7 +35,11 @@ class InputReader[A](inputRoot: String, day: Int) {
         readText(test, testCase).map(_.toInt)
     }
 
-    def readParsed(parser: (String) => A, test: Boolean = false, testCase: Int = 1) : List[A] = {
+    def readParsedByLine(parser: (String) => A, test: Boolean = false, testCase: Int = 1) : List[A] = {
         readText(test, testCase).map(parser)
+    }
+
+    def readParsedWhole(parser: (List[String]) => A, test: Boolean = false, testCase: Int = 1) : A = {
+        parser(readText(test, testCase))
     }
 }

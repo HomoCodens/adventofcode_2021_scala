@@ -9,7 +9,7 @@ class Day3Solver(inputRoot: String,
     type Diagnostic = List[Int]
     val diagnostics = {        
         val reader = new InputReader[Diagnostic](inputRoot, day)
-        reader.readParsed(_.split("").toList.map(_.toInt), test, testCase)
+        reader.readParsedByLine(_.split("").toList.map(_.toInt), test, testCase)
     }
 
     def getBitCounts(diagnostics: List[Diagnostic]) : List[Int] = {

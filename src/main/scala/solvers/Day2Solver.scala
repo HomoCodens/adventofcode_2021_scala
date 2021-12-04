@@ -17,7 +17,7 @@ class Day2Solver(inputRoot: String,
             }
         }
         
-        day2Reader.readParsed(parseInstruction)
+        day2Reader.readParsedByLine(parseInstruction)
     }
     
     override def part1() : String = {
