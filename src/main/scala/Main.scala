@@ -3,6 +3,7 @@ import solvers.Day1Solver
 import solvers.Day2Solver
 import solvers.Day3Solver
 import solvers.Day4Solver
+import solvers.Day5Solver
 object Main extends App {
 
   val d1 = new Day1Solver("./inputs", false)
@@ -16,4 +17,7 @@ object Main extends App {
 
   val d4 = new Day4Solver("./inputs", test = false, testCase = 1)
   d4.run()
+
+  val d5 = new Day5Solver("./inputs", test = true, testCase = 1)
+  d5.run()
 }
