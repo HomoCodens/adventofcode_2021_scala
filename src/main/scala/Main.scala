@@ -18,6 +18,6 @@ object Main extends App {
   val d4 = new Day4Solver("./inputs", test = false, testCase = 1)
   d4.run()
 
-  val d5 = new Day5Solver("./inputs", test = true, testCase = 1)
+  val d5 = new Day5Solver("./inputs", test = false, testCase = 1)
   d5.run()
 }
