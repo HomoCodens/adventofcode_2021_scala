@@ -29,35 +29,48 @@ class Phishie(initialClock: Int = 8) {
     }
 }
 
+case class Cohort(var population: BigInt = 0, var juveniles: BigInt = 0)
+
 class Day6Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
                  testCase: Int = 1) extends Solver(inputRoot, verbose) {
     val day = 6
-    val pop: List[Phishie] = {
-        def parse(line: String): List[Phishie] = {
-            line.split(",").map(_.toInt).toList.map(new Phishie(_))
+    val initial: List[Int] = {
+        def parse(line: String): List[Int] = {
+            line.split(",").map(_.toInt).toList
         }
 
-        val reader = new InputReader[List[Phishie]](inputRoot, day)
+        val reader = new InputReader[List[Int]](inputRoot, day)
         reader.readParsedByLine(parse, test, testCase)(0)
     }
 
-    override def part1(): String = {
-        val part1Pop = pop.map(p => new Phishie(p.babyClock))
-        for(i <- 1 to 80) {
-            p(s"After $i days: ${part1Pop.map(_.getSize).sum} phishies exist")
-            part1Pop.foreach(_.tick)
+    def getPopulation(): List[Cohort] = {
+        (0 to 6).map(x => Cohort(initial.filter(_ == x).length)).toList
+    }
+
+    def run(nDays: Int): BigInt = {
+        var pop = getPopulation()
+        for(i <- 1 to (nDays - 1)) {
+            p(s"day $i")
+            val cohortToSpawn = i % 7
+            val cohortToSpawnInto = (cohortToSpawn + 2) % 7
+            if(pop(cohortToSpawn).population > 0) {
+                p(s"Cohort $cohortToSpawn spawning ${pop(cohortToSpawn).population} bebbehs")
+            }
+            pop(cohortToSpawnInto).juveniles = pop(cohortToSpawn).population
+            pop(cohortToSpawn).population += pop(cohortToSpawn).juveniles
+            pop(cohortToSpawn).juveniles = 0
+            p(pop)
         }
-        part1Pop.map(_.getSize).sum.toString
+        pop.map(x => x.population + x.juveniles).sum
+    }
+
+    override def part1(): String = {
+        run(80).toString
     }
 
     override def part2(): String = {
-        val part1Pop = pop.map(p => new Phishie(p.babyClock))
-        for(i <- 1 to 256) {
-            part1Pop.foreach(_.tick)
-            p(s"day $i done")
-        }
-        part1Pop.map(_.getSize).sum.toString
+        run(256).toString
     }
 }
