@@ -7,7 +7,8 @@ import solvers.Day5Solver
 import solvers.Day6Solver
 import solvers.Day7Solver
 import solvers.Day8Solver
+import solvers.Day9Solver
 object Main extends App {
-  val d8 = new Day8Solver("./inputs", test = false, testCase = 1, verbose = true)
-  d8.run()
+  val d9 = new Day9Solver("./inputs", test = false, testCase = 1, verbose = true)
+  d9.run()
 }
