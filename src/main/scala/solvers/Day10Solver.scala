@@ -34,22 +34,11 @@ class Day10Solver(inputRoot: String,
     def parseLine(line: List[String]): ParsingResult = {
         def rec(stack: List[String], tail: List[String]): ParsingResult = {
             tail match {
-                case h +: t => {
-                    if(isCloser(h)) {
-                        if(closes(h, stack.head)) {
-                            rec(stack.tail, t)
-                        } else {
-                            (stack, Some(h))
-                        }
-                    } else {
-                        rec(h +: stack, t)
-                    }
-                }
-                case List(x) => if(closes(x, stack.head)) {
-                    (stack, None)
-                } else {
-                    (stack, Some(x))
-                }
+                case h +: t if !isCloser(h) => rec(h +: stack, t)
+                case h +: t if isCloser(h) & closes(h, stack.head) => rec(stack.tail, t)
+                case h +: t if isCloser(h) => (stack, Some(h))
+                case List(x) if closes(x, stack.head) => (stack, None)
+                case List(x) => (stack, Some(x))
                 case List() => (stack, None)
             }
         }
