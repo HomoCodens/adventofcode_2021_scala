@@ -1,6 +1,6 @@
 import solvers._
 object Main extends App {
-  val day = 6
+  val day = 11
 
   getSolver(day).run()
 
