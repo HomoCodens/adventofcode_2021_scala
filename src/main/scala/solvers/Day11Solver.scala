@@ -50,9 +50,9 @@ class Day11Solver(inputRoot: String,
                 case Some(x) => {
                     val flash = x._1
                     var nq = x._2
-                    //println(s"Flashing $flash")
+                    //p(s"Flashing $flash")
                     for(n <- getNeighbours(flash) if !flashed.contains(n)) {
-                        //println(s"Enqueuing $n")
+                        //p(s"Enqueuing $n")
                         nq = enQueue(nq, n, grid(n.y)(n.x) + 1)
                     }
                     //printGridInProgress(grid, nq)
@@ -89,7 +89,7 @@ class Day11Solver(inputRoot: String,
         val g = grid.zipWithIndex.map({
             case (r, i) => r.zipWithIndex.map({ case (e, j) => if(queue.contains(Position(j, i))) queue(Position(j, i)) else grid(j)(i)})
         })
-        println(g.map(x => x.map(e => e).mkString("|")).mkString("\n"))
+        p(g.map(x => x.map(e => e).mkString("|")).mkString("\n"))
     }
 
     def resetFlashers(grid: DumboGrid, flashers: List[Position]): DumboGrid = {
@@ -106,8 +106,8 @@ class Day11Solver(inputRoot: String,
             gridP1 = advance(gridP1)
             val r = getFlashers(gridP1)
             gridP1 = r._1
-            println(s"${r._2} squiddies went *flash*")
-            //println(gridP1.map(_.mkString).mkString("\n"))
+            p(s"${r._2} squiddies went *flash*")
+            //p(gridP1.map(_.mkString).mkString("\n"))
             totalFlashes += r._2
         }
         totalFlashes.toString
@@ -122,7 +122,7 @@ class Day11Solver(inputRoot: String,
             val r = getFlashers(gridP1)
             gridP1 = r._1
             havingFlashed = r._2
-            println(s"${r._2} squiddies went *flash*")
+            p(s"${r._2} squiddies went *flash*")
             step += 1
         }
         step.toString
