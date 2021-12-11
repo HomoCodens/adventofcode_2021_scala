@@ -1,15 +1,13 @@
-import aocutil.InputReader
-import solvers.Day1Solver
-import solvers.Day2Solver
-import solvers.Day3Solver
-import solvers.Day4Solver
-import solvers.Day5Solver
-import solvers.Day6Solver
-import solvers.Day7Solver
-import solvers.Day8Solver
-import solvers.Day9Solver
-import solvers.Day10Solver
+import solvers._
 object Main extends App {
-  val d10 = new Day10Solver("./inputs", test = false, testCase = 1, verbose = true)
-  d10.run()
+  val day = 6
+
+  getSolver(day).run()
+
+  def getSolver(day: Int): Solver = {
+    val c = Class.forName(s"solvers.Day${day}Solver")
+    val cc = c.getConstructors()(0)
+    val i = cc.newInstance("./inputs", false, false, 1).asInstanceOf[Solver]
+    i
+  }
 }
