@@ -6,19 +6,23 @@ class Day14Solver(inputRoot: String,
                  test: Boolean = false,
                  testCase: Int = 1) extends Solver(inputRoot, verbose) {
     val day = 14
-    val (startymer: List[String], reactions: Map[String, String]) = {
-        val reader = new InputReader[Tuple2[List[String], Map[String, String]]](inputRoot, day)
+    type Pair = Tuple2[Char, Char]
+    type Polymer = Map[Pair, BigInt]
+    type Reactions = Map[Pair, Char]
+    val (startymer: String, reactions: Reactions) = {
+        val reader = new InputReader[Tuple2[String, Reactions]](inputRoot, day)
 
         def parse(lines: List[String]) = {
-            var startymer = List[String]()
-            var reactions = Map[String, String]()
+            var startymer: String = ""
+            // https://stackoverflow.com/questions/51957242/how-to-initialize-empty-map-that-has-been-type-aliased
+            var reactions: Reactions = Map()
             val ReactionPattern = "([A-Z]{2}) -> ([A-Z])".r
 
             for(l <- lines) {
                 l match {
                     case "" => {}
-                    case ReactionPattern(reactants, product) => reactions = reactions + (reactants -> product)
-                    case _ => startymer = l.split("").toList
+                    case ReactionPattern(reactants, product) => reactions = reactions + ((reactants.head, reactants.last) -> product.head)
+                    case _ => startymer = l
                 }
             }
 
@@ -28,42 +32,50 @@ class Day14Solver(inputRoot: String,
         reader.readParsedWhole(parse, test, testCase)
     }
 
-    List(1) match {
-        case x :: rest => {println(x); println(rest)}
-        case x => println(x)
-        case _ => println("blegh")
+    def getStartymer(): Polymer = {
+        val one: BigInt = 1
+        val xx: Polymer = Map()
+        startymer.sliding(2).foldLeft(xx)((acc, x) => acc + ((x.head, x.last) -> ((acc.getOrElse((x.head, x.last), 0): BigInt) + one)))
     }
 
-    def reactizise(left: List[String], right: List[String], reactions: Map[String, String], product: List[String]): List[String] = {
-        right match {
-            case x :: tail => {
-                reactizise(left :+ x,
-                            tail,
-                            reactions,
-                            product ++ (reactions.get(s"${left.last}$x") match {case Some(p) => List(p, x); case None => List(x) }))
+    def react(polymer: Polymer, reactions: Reactions): Polymer = {
+        var pp: Polymer = Map() // yeyeh, not functional... I'll get to it
+        for(r <- reactions) {
+            pp = growPear(pp, r._1, r._2, polymer.getOrElse(r._1, 0))
+        }
+        pp
+    }
+
+    def growPear(polymer: Polymer, pair: Pair, product: Char, n: BigInt): Polymer = {
+        val a = (pair._1, product)
+        val b = (product, pair._2)
+        polymer + (a -> ((polymer.getOrElse(a, 0): BigInt) + n), b -> ((polymer.getOrElse(b, 0): BigInt) + n))
+    }
+
+    def solve(n: Int = 10): BigInt = {
+        var pp = getStartymer()
+        for(i <- 1 to n) {
+            pp = react(pp, reactions)
+        }
+        var c = Map[Char, BigInt]()
+        for(x <- pp) {
+            val a = x._1._1
+            val b = x._1._2
+            val n = x._2
+            if(a == b) {
+                c = c + (a -> ((c.getOrElse(a, 0): BigInt) + 2*n))
+            } else {
+                c = c + (a -> ((c.getOrElse(a, 0): BigInt) + n), b -> ((c.getOrElse(b, 0): BigInt) + n))
             }
-            case List() => product
         }
+        c = c.map({ case (cha, n) => (cha, (n + (if(cha == startymer.head | cha == startymer.last) { 1 } else { 0 })) / 2) })
+        c.values.max - c.values.min
     }
-
     override def part1(): String = {
-        var afterymer = startymer
-        for(i <- 1 to 10) {
-            afterymer = reactizise(List(afterymer.head), afterymer.tail, reactions, List(afterymer.head))
-        }
-        val counts = afterymer.foldLeft(Map[String, Int]())((acc, x) => acc + (x -> (acc.getOrElse(x, 0) + 1)))
-        println(counts.values.max - counts.values.min)
-        ""
+        solve().toString
     }
 
     override def part2(): String = {
-        var afterymer = startymer
-        for(i <- 1 to 40) {
-            println(i)
-            afterymer = reactizise(List(afterymer.head), afterymer.tail, reactions, List(afterymer.head))
-        }
-        val counts = afterymer.foldLeft(Map[String, BigInt]())((acc, x) => acc + (x -> (acc.getOrElse(x, 0:BigInt) + 1:BigInt)))
-        println(counts.values.max - counts.values.min)
-        ""
+        solve(40).toString
     }
 }
