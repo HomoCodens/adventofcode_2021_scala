@@ -63,7 +63,6 @@ class Day15Solver(inputRoot: String,
                             val s = g.getOrElse(at, 0) + getExpandedGridValue(n, grid)
                             if(s < g.getOrElse(n, Integer.MAX_VALUE)) {
                                 g = g + (n -> s)
-                                //qq = qq.filter({ case (p, _) => p != n})
                                 qq.enqueue((n, s + h(n)))
                             }
                         })
