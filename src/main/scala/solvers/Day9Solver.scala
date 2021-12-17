@@ -51,10 +51,10 @@ class CaveFloor(lines: List[String]) {
     def getBasin(start: Cell): List[Cell] = {
         def rec(visited: List[Cell], queue: Queue[Cell]): List[Cell] = {
             queue match {
-                case Queue() => visited
                 // Eery
                 case head +: tail => rec(visited :+ head,
                                             tail ++ (getNeighbours(head.pos._1, head.pos._2).filterNot(x => visited.contains(x) | x.value >= 9 | queue.contains(x))))
+                case _: Queue[Cell] => visited
             }
         }
         rec(List[Cell](), Queue[Cell](start)).toList

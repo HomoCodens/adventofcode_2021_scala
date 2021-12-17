@@ -92,6 +92,8 @@ class Day16Solver(inputRoot: String,
                         p(s"Parsing literal done, got value $result")
                         (result, tail)
                     }
+                    // In other words: can not happen
+                    case _ => throw new RuntimeException(s"What is that non-'binary' Integer doing here? ${chunk.take(10).mkString}")
                 }
             }
             p(s"Parsing literal ${bits.mkString}")
@@ -143,6 +145,7 @@ class Day16Solver(inputRoot: String,
                     p(s"Came back up with ${children.length} children...")
                     (new BITSOperator(version, op, children), rest)
                 }
+                case _ => throw new RuntimeException(s"What is that non-'binary' Integer doing here? ${bits.take(10).mkString}")
             }
         }
     }

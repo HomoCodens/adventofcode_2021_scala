@@ -25,7 +25,7 @@ object Main extends App {
       case "-v" :: rest => getArgs(acc + ("verbose" -> true), rest)
       case "-i" :: inputDir :: rest => getArgs(acc + ("input" -> inputDir), rest)
       case "--time" :: rest => getArgs(acc + ("time" -> true), rest)
-      case Nil => acc
+      case _ => acc
     }
   }
 }

@@ -53,6 +53,7 @@ class Day13Solver(inputRoot: String,
             f match {
                 case Fold("x", offset) => foldX(p, f)
                 case Fold("y", offset) => foldY(p, f)
+                case _ => throw new RuntimeException(s"Illegal fold in input: $f")
             }
         })
         val xMax = finalPoints.maxBy(_.x).x

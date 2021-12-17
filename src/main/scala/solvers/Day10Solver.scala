@@ -39,7 +39,7 @@ class Day10Solver(inputRoot: String,
                 case h +: t if isCloser(h) => (stack, Some(h))
                 case List(x) if closes(x, stack.head) => (stack.tail, None)
                 case List(x) => (stack, Some(x))
-                case List() => (stack, None)
+                case _: List[String] => (stack, None)
             }
         }
 

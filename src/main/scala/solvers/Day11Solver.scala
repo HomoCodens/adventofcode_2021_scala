@@ -56,7 +56,6 @@ class Day11Solver(inputRoot: String,
                         nq = enQueue(nq, n, grid(n.y)(n.x) + 1)
                     }
                     //printGridInProgress(grid, nq)
-                    flashed
                     rec(nq, flashed :+ flash)
                 }
                 case None => (queue, flashed)
