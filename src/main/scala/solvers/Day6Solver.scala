@@ -34,7 +34,8 @@ case class Cohort(var population: BigInt = 0, var juveniles: BigInt = 0)
 class Day6Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 6
     val initial: List[Int] = {
         def parse(line: String): List[Int] = {

@@ -1,6 +1,10 @@
 package solvers
 
-abstract class Solver(inputRoot: String, verbose: Boolean = false, test: Boolean = false, testCase: Int = 1) {
+abstract class Solver(inputRoot: String,
+                        verbose: Boolean = false,
+                        test: Boolean = false,
+                        testCase: Int = 1,
+                        timeSolutions: Boolean) {
     val day: Int
 
     def p(x: Any) = {
@@ -13,18 +17,34 @@ abstract class Solver(inputRoot: String, verbose: Boolean = false, test: Boolean
         println("==========================")
         println(s"Day $day")
         println("==========================")
-        val p1t0 = System.nanoTime()
         val p1 = part1()
-        val p1t = System.nanoTime() - p1t0
-        val p2t0 = System.nanoTime()
+
         val p2 = part2()
-        val p2t = System.nanoTime() - p2t0
         println(s"Part 1: $p1")
-        println(s"Part 1 ran in ${p1t.toFloat/1000000}ms")
         println(s"Part 2: $p2")
-        println(s"Part 2 ran in ${p2t.toFloat/1000000}ms")
+
+        if(timeSolutions) {
+            println()
+            print("Timing part 1... ")
+            val t1 = timeSolution(part1, 100)
+            println(s"Part 1 ran in ${t1}ms")
+            
+            print("Timing part 2... ")
+            val t2 = timeSolution(part2, 100)
+            println(s"Part 2 ran in ${t2}ms")
+
+        }
+
         println()
         println()
+    }
+
+    def timeSolution(f: () => String, n: Int): Float = {
+        (1 to n).foldLeft(List[Float]())((acc, i) => {
+            val t0 = System.nanoTime()
+            val x = f()
+            acc :+ ((System.nanoTime() - t0).toFloat)/1000000
+        }).sum / n
     }
 
     def part1() : String = {

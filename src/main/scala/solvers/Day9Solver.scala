@@ -64,7 +64,8 @@ class CaveFloor(lines: List[String]) {
 class Day9Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 9
     val floor = {
         val reader = new InputReader[CaveFloor](inputRoot, day)

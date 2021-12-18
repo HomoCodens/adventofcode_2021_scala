@@ -4,7 +4,8 @@ import aocutil.InputReader
 class Day17Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 17
 
     case class TargetArea(minX: Int, minY: Int, maxX: Int, maxY: Int)

@@ -5,7 +5,8 @@ import aocutil.InputReader
 class Day18Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 18 // In which we learn on trees in FP
     val numbers = {
         val reader = new InputReader[SnailFishNumber](inputRoot, day)

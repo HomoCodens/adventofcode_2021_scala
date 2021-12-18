@@ -4,7 +4,8 @@ import aocutil.InputReader
 class Day13Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     case class Point(x: Int, y: Int)
     case class Fold(axis: String, offset: Int)
     val day = 13

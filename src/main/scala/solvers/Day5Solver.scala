@@ -34,7 +34,8 @@ class Line(start: Point, end: Point) {
 class Day5Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 5
     val lines: List[Line] = {
         val reader = new InputReader[Line](inputRoot, day)

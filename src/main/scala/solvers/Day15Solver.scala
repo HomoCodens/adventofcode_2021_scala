@@ -5,7 +5,8 @@ import scala.collection.mutable.PriorityQueue
 class Day15Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 15
     
     // This is the point (pun xD) where it would pay to pull this grid stuff into utils

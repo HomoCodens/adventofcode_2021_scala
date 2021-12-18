@@ -4,7 +4,8 @@ import aocutil.InputReader
 class Day14Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 14
     type Pair = Tuple2[Char, Char]
     type Polymer = Map[Pair, BigInt]

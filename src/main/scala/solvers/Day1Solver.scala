@@ -4,7 +4,8 @@ import aocutil.InputReader
 class Day1Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
   val day = 1
   val reader = new InputReader(inputRoot, 1)
   val depths = reader.readInt(test, testCase).toArray

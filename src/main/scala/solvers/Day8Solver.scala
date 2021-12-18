@@ -48,7 +48,8 @@ class SevenSeg(sequences: List[String]) {
 class Day8Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 8
     case class Input(display: SevenSeg, numbers: List[String])
     val displays = {

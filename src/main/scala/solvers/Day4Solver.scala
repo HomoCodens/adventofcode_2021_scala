@@ -94,7 +94,8 @@ class Bingo(input: List[String]) {
 class Day4Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 4
     val input = {
         val reader = new InputReader(inputRoot, day)

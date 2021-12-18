@@ -5,7 +5,8 @@ import scala.math.BigInt
 class Day16Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     val day = 16
     val hex = {
         val reader = new InputReader(inputRoot, day)

@@ -4,7 +4,8 @@ import aocutil.InputReader
 class Day12Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
-                 testCase: Int = 1) extends Solver(inputRoot, verbose) {
+                 testCase: Int = 1,
+                 timeSolutions: Boolean = false) extends Solver(inputRoot, verbose, timeSolutions = timeSolutions) {
     type CaveMap = Map[String, List[String]]
     val day = 12
     val cave = {

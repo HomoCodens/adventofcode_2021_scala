@@ -8,13 +8,13 @@ object Main extends App {
   )
 
   val a = getArgs(defaultArgs, args.toList)
-  
+
   getSolver(a).run()
   
   def getSolver(args: Map[String, Any]): Solver = {
     val c = Class.forName(s"solvers.Day${a("day")}Solver")
     val cc = c.getConstructors()(0)
-    val i = cc.newInstance(a("input"), a("verbose"), a("test"), a("testCase")).asInstanceOf[Solver]
+    val i = cc.newInstance(args("input"), args("verbose"), args("test"), args("testCase"), args("time")).asInstanceOf[Solver]
     i
   }
 
