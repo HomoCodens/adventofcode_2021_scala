@@ -7,9 +7,9 @@ class Day1Solver(inputRoot: String,
                  testCase: Int = 1) extends Solver(inputRoot, verbose) {
   val day = 1
   val reader = new InputReader(inputRoot, 1)
-  val depths = reader.readInt(test, testCase)
-  def countDeepers(x : List[Int]) : Int = {
-    x.sliding(2).count(x => x(0) < x(1))
+  val depths = reader.readInt(test, testCase).toArray
+  def countDeepers(x: Array[Int], windowSize: Int = 2) : Int = {
+    x.sliding(windowSize).count(x => x(0) < x(windowSize - 1))
   }
 
   override def part1() : String = {
@@ -18,7 +18,7 @@ class Day1Solver(inputRoot: String,
   }
 
   override def part2() : String = {
-    val solution = countDeepers(depths.sliding(3).map(_.sum).toList)
+    val solution = countDeepers(depths, 4)
     s"$solution windows are deeper than their predecessors"
   }
 }
