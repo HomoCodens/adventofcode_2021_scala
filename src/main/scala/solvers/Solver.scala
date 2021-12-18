@@ -1,7 +1,7 @@
 package solvers
 
 abstract class Solver(inputRoot: String,
-                        verbose: Boolean = false,
+                        var verbose: Boolean = false,
                         test: Boolean = false,
                         testCase: Int = 1,
                         timeSolutions: Boolean) {
@@ -26,6 +26,10 @@ abstract class Solver(inputRoot: String,
         if(timeSolutions) {
             println()
             print("Timing part 1... ")
+            
+            val verbose0 = verbose
+            verbose = false
+
             val t1 = timeSolution(part1, 100)
             println(s"Part 1 ran in ${t1}ms")
             
@@ -33,6 +37,7 @@ abstract class Solver(inputRoot: String,
             val t2 = timeSolution(part2, 100)
             println(s"Part 2 ran in ${t2}ms")
 
+            verbose = verbose0
         }
 
         println()
