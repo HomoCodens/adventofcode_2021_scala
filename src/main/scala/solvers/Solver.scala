@@ -45,11 +45,16 @@ abstract class Solver(inputRoot: String,
     }
 
     def timeSolution(f: () => String, n: Int): Float = {
-        (1 to n).foldLeft(List[Float]())((acc, i) => {
+        print("       ")
+        val times = (1 to n).foldLeft(List[Float]())((acc, i) => {
+            print(s"\b\b\b\b\b\b\b${i.toString.reverse.padTo(3, '0').reverse}/$n")
             val t0 = System.nanoTime()
             val x = f()
             acc :+ ((System.nanoTime() - t0).toFloat)/1000000
-        }).sum / n
+        })
+        val meanTime = times.sum / n
+        print("\b\b\b\b\b\b\b")
+        meanTime
     }
 
     def part1() : String = {
