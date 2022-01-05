@@ -2,6 +2,8 @@ package solvers
 import aocutil.InputReader
 import scala.math.BigInt
 
+// Just so you know, Jeff, you are not the only one to have watched a Series
+// that should have stopped 3 seasons earlier.
 class Day21Solver(inputRoot: String,
                  verbose: Boolean = false,
                  test: Boolean = false,
@@ -53,6 +55,7 @@ class Day21Solver(inputRoot: String,
                 case ((t1, s1, t2, s2), n) => crossroads.map({
                     case (roll, m) if turn % 2 == 0 => {
                         val score = getScore(s1, roll)
+                        // Number of 'verses in the new state is number in the previous states * number of verses with this outcome
                         ((t1 + score, score, t2, s2), m*n)
                     }
                     case (roll, m) if turn % 2 == 1 => {
