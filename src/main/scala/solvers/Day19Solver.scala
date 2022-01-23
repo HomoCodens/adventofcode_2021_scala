@@ -15,10 +15,10 @@ class Day19Solver(inputRoot: String,
             val ProbePattern = raw"(-?\d+),(-?\d+),(-?\d+)".r
             def rec(ll: List[String], currentPoints: List[Point3D], currentClouds: List[PointCloud], nextId: Int): List[PointCloud] = {
                 ll match {
-                    case "" :: tail => rec(tail, List(), currentClouds :+ PointCloud(currentPoints, id = nextId), nextId)
                     case ScannerPattern(id) :: tail => rec(tail, currentPoints, currentClouds, nextId = id.toInt)
                     case ProbePattern(x, y, z) :: tail => rec(tail, currentPoints :+ Point3D(x.toInt, y.toInt, z.toInt), currentClouds, nextId)
                     case List() => currentClouds :+ PointCloud(currentPoints, id = nextId)
+                    case _ :: tail => rec(tail, List(), currentClouds :+ PointCloud(currentPoints, id = nextId), nextId)
                 }
             }
 
